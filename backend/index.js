@@ -10,7 +10,9 @@ mongoose.connect("mongodb+srv://rajmishra3:SDCMgbv2AjB58lEU@cluster0.onm1rsc.mon
 // Body-parser middleware
 app.use(bodyparser.urlencoded({ extended: true }))
 app.use(bodyparser.json())
-app.use(cors());
+app.use(cors({
+  origin: 'https://shivanicrud.vercel.app'
+}));
 app.use("/students", StuRoute);
 app.listen(8000, ()=>{
     console.log("Server Run on 8000! Port")
