@@ -1,19 +1,27 @@
 const express = require("express");
-const app=express();
-const StuRoute= require("./routes/stuRoute");
-const mongoose = require("mongoose");
+const app= express();
 const bodyparser = require('body-parser')
-const cors = require("cors");
-mongoose.connect("mongodb+srv://rajmishra3:SDCMgbv2AjB58lEU@cluster0.onm1rsc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0").then(()=>{
-    console.log("DB Connected!!!");
-})
+const cors = require('cors');
+const userRoute = require("./routes/userRoute")
+const mongoose = require("mongoose");
+require("dotenv").config();
+
 // Body-parser middleware
 app.use(bodyparser.urlencoded({ extended: true }))
 app.use(bodyparser.json())
-app.use(cors({
-  origin: 'https://shivanicrud.vercel.app'
-}));
-app.use("/students", StuRoute);
-app.listen(8000, ()=>{
-    console.log("Server Run on 8000! Port")
+app.use(cors());
+
+mongoose.connect(process.env.DBCON).then(()=>{
+  console.log("DB Connected!!!");
+})
+
+
+
+app.use("/user", userRoute);
+
+
+const Port = process.env.PORT || 8000
+
+app.listen(Port, ()=>{
+  console.log(`Server run on port ${Port}`);
 })
