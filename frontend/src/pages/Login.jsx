@@ -3,9 +3,10 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import BackendUrl from '../utils/BackendUrl';
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 const Login=()=>{
 const [input, setInput] = useState({});
-
+const navigate = useNavigate();
 const handleInput=(e)=>{
   let name=e.target.name;
   let value=e.target.value;
@@ -16,10 +17,14 @@ const handleSubmit=async(e)=>{
   e.preventDefault();
   let api=`${BackendUrl}user/login`;
   const response = await axios.post(api, input);
-  console.log(response);
-
-  
- 
+  if (response.status==202)
+  {
+    localStorage.setItem("username", response.data.user.email);
+    localStorage.setItem("useremail", response.data.user.name)
+    alert("You are Loged in");
+    navigate("/dashboard");
+  }
+  console.log(response.data.user.email);
 }
 return(
         <>
