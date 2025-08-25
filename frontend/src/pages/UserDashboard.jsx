@@ -17,7 +17,6 @@ const UserDashboard=()=>{
           <h1> Welcome To User DashBoard</h1>
           <div style={{backgroundColor:"lightblue", padding:"20px"}}>
             Welcome : {localStorage.getItem("username") }  Email : {localStorage.getItem("useremail")}
-      
             <a href="#" onClick={logout}>Logout</a> 
           </div>
         </>
